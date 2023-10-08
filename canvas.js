@@ -40,28 +40,33 @@ function randomColor(colors) {
 }
 
 // Object
-function Object(x, y, dy, radius, color) {
+function Circle(x, y, radius, color) {
   this.x = x;
   this.y = y;
-  this.dy = dy;
   this.radius = radius;
   this.color = color;
 
   this.update = function () {
-    this.draw = function () {
-      c.beginPath();
-      c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-      c.fillStyle = this.color;
-      c.fill();
-      // c.stroke();
-      c.closePath();
-    };
+    this.draw();
+  };
+
+  this.draw = function () {
+    c.beginPath();
+    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    c.fillStyle = this.color;
+    c.fill();
+    // c.stroke();
+    c.closePath();
   };
 }
 
 // Implementation
-
-function init() {}
+let circle1;
+let circle2;
+function init() {
+  circle1 = new Circle(300, 300, 100, "black");
+  circle2 = new Circle(undefined, undefined, 30, "red");
+}
 
 // Animation Loop
 function animate() {
@@ -69,10 +74,12 @@ function animate() {
 
   c.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (var i = 0; i < ballArray.length; i++) {
-    ballArray[i].update();
-  }
+  circle1.update();
+  circle2.x = mouse.x;
+  circle2.y = mouse.y;
+  circle2.update();
 }
+
 init();
 animate();
 // --------------------------------------------------------------------------------------------------------------------------
