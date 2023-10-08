@@ -7,8 +7,8 @@ canvas.height = window.innerHeight;
 
 // Variables
 var mouse = {
-  x: innerWidth / 2,
-  y: innerHeight / 2,
+  x: 10,
+  y: 10,
 };
 
 var colors = ["#F20F79", "#04BFBF", "#F2B90C", "#8C4E03", "#F25C05"];
@@ -37,6 +37,12 @@ function randomIntFromRange(min, max) {
 
 function randomColor(colors) {
   return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function getDistance(x1, y1, x2, y2) {
+  let xDistance = x2 - x1;
+  let yDistance = y2 - y1;
+  return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
 }
 
 // Object
@@ -78,6 +84,15 @@ function animate() {
   circle2.x = mouse.x;
   circle2.y = mouse.y;
   circle2.update();
+
+  if (
+    getDistance(circle1.x, circle1.y, circle2.x, circle2.y) <
+    circle1.radius + circle2.radius
+  ) {
+    circle1.color = "red";
+  } else {
+    circle1.color = "black";
+  }
 }
 
 init();
